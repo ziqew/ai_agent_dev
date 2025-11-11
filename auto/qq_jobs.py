@@ -10,7 +10,7 @@ from playwright.sync_api import sync_playwright
 
 START_URL = lambda p: f"https://join.qq.com/post.html?query=p_{p}"
 WAIT = 1.0
-MAX_PAGES = 1
+MAX_PAGES = 13
 
 
 def clean_text(x: str):
@@ -54,7 +54,7 @@ def scrape_all():
     all_jobs = []
 
     with sync_playwright() as pw:
-        browser = pw.chromium.launch(headless=True)
+        browser = pw.chromium.launch(headless=False)
         context = browser.new_context()
 
         # 列表页
