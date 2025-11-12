@@ -3,7 +3,7 @@ import json
 import time
 import pandas as pd
 
-LIST_URL = "https://talent.taotian.com/campus/position-list?batchId=100000040001&campusType=freshman&lang=zh"
+LIST_URL = "https://careers.aliyun.com/campus/position-list?campusType=freshman&lang=zh"
 
 
 # -----------------------------------------------------------
@@ -42,7 +42,7 @@ def scrape_details_from_page(page):
 # 抓取列表页（纯结构定位，无类名）
 # -----------------------------------------------------------
 def scrape_list_page(page, browser):
-    positionList = page.locator("#positionList")
+    positionList = page.locator("#positionListBlock")
     html = positionList.inner_html()
     print(html)
     container = positionList.locator(":scope > div:nth-child(1) > div:nth-child(2)")
@@ -144,8 +144,8 @@ def scrape_all_pages():
 
 def convert_csv_text():
     # 1. 输入 / 输出文件名
-    input_csv = "taotian_jobs.csv"     # 你的源文件
-    output_txt = "taotian_jobs.txt"    # 生成的txt文件
+    input_csv = "aliyun_jobs.csv"     # 你的源文件
+    output_txt = "aliyun_jobs.txt"    # 生成的txt文件
 
     # 2. 读取 CSV
     df = pd.read_csv(input_csv)
@@ -176,10 +176,10 @@ def convert_csv_text():
 # 主程序
 # -----------------------------------------------------------
 if __name__ == "__main__":
-    convert_csv_text()
-    # all_jobs = scrape_all_pages()
-    # df = pd.DataFrame(all_jobs)
-    # output="taotian_jobs.csv"
-    # df.to_csv(output, index=False, encoding="utf-8-sig")
-    # print(f"\n✅ 全部完成，共抓取 {len(all_jobs)} 条职位")
+    #convert_csv_text()
+    all_jobs = scrape_all_pages()
+    df = pd.DataFrame(all_jobs)
+    output="aliyun_jobs.csv"
+    df.to_csv(output, index=False, encoding="utf-8-sig")
+    print(f"\n✅ 全部完成，共抓取 {len(all_jobs)} 条职位")
 
